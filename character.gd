@@ -2,7 +2,7 @@ extends CharacterBody2D
  
 @onready var _focus = $focus
 @onready var progress_bar = $ProgressBar
-@onready var animation_player = $AnimationPlayer
+@onready var animation_player = %AnimationPlayer
 @onready var floating_numbers = $TextPopupLocation
 @onready var damage_numbers = %Label
 var players = [
@@ -18,13 +18,13 @@ var EnemyStats = [
 		Enemy4Stats
 	]
  
-var playerhealth: float = Player1Stats.PlayerHP:
+var playerhealth: float:
 	set(value):
 		playerhealth = value
 		_play_animation()
 		floating_numbers.popup()
 		
-var enemyhealth: float = Enemy1Stats.EnemyHP:
+var enemyhealth: float:
 	set(value):
 		enemyhealth = value
 		_play_animation()
@@ -38,6 +38,8 @@ func _update_progress_bar_players():
 	for i in GlobalVars.PlayerAmount:
 		var str_i: String = str(i+1)
 		var playerprogbar = get_node("../../PlayerGroup/Character" + str_i + "/ProgressBar")
+		var playerhplabel = get_node("../../PlayerGroup/Character" + str_i + "/HPLabel")
+		playerhplabel.text = str(players[i].PlayerHP)
 		playerprogbar.max_value = int(players[i].PlayerMaxHP)
 		playerprogbar.value = int(players[i].PlayerHP)
 			
@@ -47,6 +49,8 @@ func _update_progress_bar_enemies():
 	for i in enemies.size():
 		var str_i: String = str(i+1)
 		var enemyprogbar = get_node("../../EnemyGroup/Character" + str_i + "/ProgressBar")
+		var enemyhplabel = get_node("../../EnemyGroup/Character" + str_i + "/HPLabel")
+		enemyhplabel.text = str(EnemyStats[i].EnemyHP)
 		if enemyprogbar:
 			enemyprogbar.max_value = int(EnemyStats[i].EnemyMaxHP)
 			enemyprogbar.value = int(EnemyStats[i].EnemyHP)

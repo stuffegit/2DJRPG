@@ -1,10 +1,12 @@
 [gd_scene load_steps=14 format=3 uid="uid://36cibapy05jx"]
 
 [ext_resource type="Script" path="res://character.gd" id="1_0pecf"]
-[ext_resource type="Texture2D" uid="uid://b21n38uxifsr0" path="res://assets/anim/slime/Slime-0001.png" id="1_wuf0r"]
 [ext_resource type="Texture2D" uid="uid://doieu3njvpwj6" path="res://assets/ui/Crisis_core_cursor.webp" id="2_5j85h"]
 [ext_resource type="FontFile" uid="uid://b40etf1d71sjq" path="res://assets/ui/fonts/final_fantasy_36_font.ttf" id="3_rxwtk"]
 [ext_resource type="Script" path="res://TextPopupLocation.gd" id="5_tkxsb"]
+
+[sub_resource type="FontVariation" id="FontVariation_p8ev0"]
+base_font = ExtResource("3_rxwtk")
 
 [sub_resource type="FontVariation" id="FontVariation_8b08i"]
 base_font = ExtResource("3_rxwtk")
@@ -56,6 +58,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D2:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_f53wy"]
 resource_name = "dmg_popup"
@@ -88,7 +102,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_mn8ex"]
 resource_name = "hurt"
-length = 0.1
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -96,6 +110,18 @@ tracks/0/path = NodePath("Sprite2D:self_modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -114,9 +140,12 @@ texture_filter = 1
 scale = Vector2(2, 2)
 script = ExtResource("1_0pecf")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D2" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
-texture = ExtResource("1_wuf0r")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+autoplay = "default"
 
 [node name="focus" type="Sprite2D" parent="."]
 visible = false
@@ -124,8 +153,13 @@ position = Vector2(-50, 0)
 texture = ExtResource("2_5j85h")
 
 [node name="HPLabel" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 20.0
+offset_top = -33.0
+offset_right = 60.0
+offset_bottom = -10.0
+theme_override_fonts/font = SubResource("FontVariation_p8ev0")
+theme_override_font_sizes/font_size = 16
+text = "test"
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 offset_left = -25.0
