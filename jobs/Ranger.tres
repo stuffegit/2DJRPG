@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Job" load_steps=3 format=3 uid="uid://bxlm2su7e3dvl"]
+
+[ext_resource type="Texture2D" uid="uid://eh7n4ha0d6j7" path="res://icon.svg" id="1_5g31d"]
+[ext_resource type="Script" path="res://jobs/job_blueprint.gd" id="1_koyos"]
+
+[resource]
+script = ExtResource("1_koyos")
+icon = ExtResource("1_5g31d")
+name = "Ranger"
+StrengthBonus = 4.0
+AgilityBonus = 0.0

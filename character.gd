@@ -1,5 +1,5 @@
 extends CharacterBody2D
- 
+
 @onready var _focus = $focus
 @onready var progress_bar = $ProgressBar
 @onready var animation_player = %AnimationPlayer
@@ -17,6 +17,10 @@ var EnemyStats = [
 		Enemy3Stats,
 		Enemy4Stats
 	]
+var enemies: Array = []
+var defeated: int = 0
+var enemyprogbar
+var enemyhplabel
  
 var playerhealth: float:
 	set(value):
@@ -29,6 +33,7 @@ var enemyhealth: float:
 		enemyhealth = value
 		_play_animation()
 		floating_numbers.popup()
+		
  
 func _ready():
 	_update_progress_bar_players()
@@ -45,15 +50,23 @@ func _update_progress_bar_players():
 			
 
 func _update_progress_bar_enemies():
-	var enemies = get_node("../../EnemyGroup").get_children()
+	_get_children_of_enemies()
 	for i in enemies.size():
 		var str_i: String = str(i+1)
-		var enemyprogbar = get_node("../../EnemyGroup/Character" + str_i + "/ProgressBar")
-		var enemyhplabel = get_node("../../EnemyGroup/Character" + str_i + "/HPLabel")
-		enemyhplabel.text = str(EnemyStats[i].EnemyHP)
-		if enemyprogbar:
+		if get_node("../../EnemyGroup/Character" + str_i + "/HPLabel") != null:
+			enemyhplabel = get_node("../../EnemyGroup/Character" + str_i + "/HPLabel")
+			enemyhplabel.text = str(EnemyStats[i-defeated].EnemyHP)
+		if get_node("../../EnemyGroup/Character" + str_i + "/ProgressBar") != null:
+			enemyprogbar = get_node("../../EnemyGroup/Character" + str_i + "/ProgressBar")
 			enemyprogbar.max_value = int(EnemyStats[i].EnemyMaxHP)
 			enemyprogbar.value = int(EnemyStats[i].EnemyHP)
+		# TODO: This is cursed, i'll do it later.
+		#if EnemyStats[i].EnemyHP <= 0:
+			#enemies[i].queue_free()
+			#_get_children_of_enemies()
+
+func _get_children_of_enemies():
+	enemies = get_node("../../EnemyGroup").get_children()
  
 func _play_animation():
 	animation_player.play("hurt")

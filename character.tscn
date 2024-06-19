@@ -153,13 +153,13 @@ position = Vector2(-50, 0)
 texture = ExtResource("2_5j85h")
 
 [node name="HPLabel" type="Label" parent="."]
-offset_left = 20.0
-offset_top = -33.0
-offset_right = 60.0
-offset_bottom = -10.0
+offset_left = 28.0
+offset_top = -20.0
+offset_right = 68.0
+offset_bottom = 3.0
 theme_override_fonts/font = SubResource("FontVariation_p8ev0")
 theme_override_font_sizes/font_size = 16
-text = "test"
+text = "1"
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 offset_left = -25.0
