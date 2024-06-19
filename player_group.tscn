@@ -15,31 +15,4 @@ hframes = 2
 vframes = 2
 frame = 3
 
-[node name="Character2" parent="." instance=ExtResource("1_kp6k1")]
-
-[node name="Sprite2D" parent="Character2" index="0"]
-texture = SubResource("CompressedTexture2D_lq23l")
-hframes = 2
-vframes = 2
-frame = 3
-
-[node name="Character3" parent="." instance=ExtResource("1_kp6k1")]
-
-[node name="Sprite2D" parent="Character3" index="0"]
-texture = SubResource("CompressedTexture2D_lq23l")
-hframes = 2
-vframes = 2
-frame = 3
-
-[node name="Character4" parent="." instance=ExtResource("1_kp6k1")]
-
-[node name="Sprite2D" parent="Character4" index="0"]
-texture = SubResource("CompressedTexture2D_lq23l")
-hframes = 2
-vframes = 2
-frame = 3
-
 [editable path="Character1"]
-[editable path="Character2"]
-[editable path="Character3"]
-[editable path="Character4"]

@@ -41,7 +41,7 @@ func _process(_delta):
 			emit_signal("next_player")
 			show_choice()
 	
-	if action_queue.size() == enemies.size() and not is_battling:
+	if action_queue.size() == GlobalVars.PlayerAmount and not is_battling:
 		is_battling = true
 		_action(action_queue)
 		_reset_focus()

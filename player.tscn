@@ -1,0 +1,115 @@
+[gd_scene load_steps=2 format=3 uid="uid://mwlj1fk11085"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_vq5e6"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_vq5e6")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Level" type="HBoxContainer" parent="UI"]
+offset_left = 1068.0
+offset_top = 479.0
+offset_right = 1192.0
+offset_bottom = 521.0
+
+[node name="Label" type="Label" parent="UI/Level"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "1"
+
+[node name="ProgressBar" type="ProgressBar" parent="UI/Level"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="GainExp" type="Button" parent="UI"]
+offset_left = 1234.0
+offset_top = 483.0
+offset_right = 1306.0
+offset_bottom = 514.0
+text = "GainExp
+"
+
+[node name="Stats" type="HBoxContainer" parent="UI"]
+offset_left = 1160.0
+offset_top = 563.0
+offset_right = 1250.0
+offset_bottom = 721.0
+
+[node name="Attribute" type="VBoxContainer" parent="UI/Stats"]
+layout_mode = 2
+
+[node name="TotalXP" type="Label" parent="UI/Stats/Attribute"]
+layout_mode = 2
+text = "Total XP:"
+
+[node name="HP" type="Label" parent="UI/Stats/Attribute"]
+layout_mode = 2
+text = "HP: "
+
+[node name="Strength" type="Label" parent="UI/Stats/Attribute"]
+layout_mode = 2
+text = "Strength: "
+
+[node name="Vitality" type="Label" parent="UI/Stats/Attribute"]
+layout_mode = 2
+text = "Vitality: "
+
+[node name="Agility" type="Label" parent="UI/Stats/Attribute"]
+layout_mode = 2
+text = "Agility: "
+
+[node name="Spirit" type="Label" parent="UI/Stats/Attribute"]
+layout_mode = 2
+text = "Spirit: "
+
+[node name="Value" type="VBoxContainer" parent="UI/Stats"]
+layout_mode = 2
+
+[node name="TotalXP" type="Label" parent="UI/Stats/Value"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="HP" type="Label" parent="UI/Stats/Value"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="Strength" type="Label" parent="UI/Stats/Value"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="Vitality" type="Label" parent="UI/Stats/Value"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="Agility" type="Label" parent="UI/Stats/Value"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[node name="Spirit" type="Label" parent="UI/Stats/Value"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0"
+horizontal_alignment = 2
+
+[connection signal="pressed" from="UI/GainExp" to="." method="_on_gain_exp_pressed"]
