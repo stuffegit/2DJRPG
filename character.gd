@@ -11,10 +11,12 @@ var players = [
 		Player3Stats,
 		Player4Stats
 	]
-
-
-
-@export var MAX_HEALTH: float = Player1Stats.PlayerMaxHP
+var EnemyStats = [
+		Enemy1Stats,
+		Enemy2Stats,
+		Enemy3Stats,
+		Enemy4Stats
+	]
  
 var playerhealth: float = Player1Stats.PlayerHP:
 	set(value):
@@ -22,7 +24,7 @@ var playerhealth: float = Player1Stats.PlayerHP:
 		_play_animation()
 		floating_numbers.popup()
 		
-var enemyhealth: float = CurrentEnemy.EnemyHP:
+var enemyhealth: float = Enemy1Stats.EnemyHP:
 	set(value):
 		enemyhealth = value
 		_play_animation()
@@ -36,9 +38,6 @@ func _update_progress_bar_players():
 	for i in GlobalVars.PlayerAmount:
 		var str_i: String = str(i+1)
 		var playerprogbar = get_node("../../PlayerGroup/Character" + str_i + "/ProgressBar")
-		print(playerprogbar.value)
-		#if playerprogbar:
-			#print(progbar)
 		playerprogbar.max_value = int(players[i].PlayerMaxHP)
 		playerprogbar.value = int(players[i].PlayerHP)
 			
@@ -49,8 +48,8 @@ func _update_progress_bar_enemies():
 		var str_i: String = str(i+1)
 		var enemyprogbar = get_node("../../EnemyGroup/Character" + str_i + "/ProgressBar")
 		if enemyprogbar:
-			enemyprogbar.max_value = CurrentEnemy.EnemyMaxHP
-			enemyprogbar.value = CurrentEnemy.EnemyHP
+			enemyprogbar.max_value = int(EnemyStats[i].EnemyMaxHP)
+			enemyprogbar.value = int(EnemyStats[i].EnemyHP)
  
 func _play_animation():
 	animation_player.play("hurt")
@@ -81,7 +80,7 @@ func take_damage(value, target):
 		#print(value_print)
 		
 	if GlobalVars.PlayerTurn == true:
-		CurrentEnemy.EnemyHP -= value
+		EnemyStats[target].EnemyHP -= value
 		enemyhealth -= value
 		damage_numbers.text = str(value)
 		
