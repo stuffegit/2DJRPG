@@ -1,5 +1,6 @@
 extends Node2D
 
+var rng = RandomNumberGenerator.new()
 var enemies: Array = []
 var action_queue: Array = []
 var is_battling: bool = false
@@ -10,11 +11,13 @@ var player_damages = [
 		Player3Stats.PlayerDamage,
 		Player4Stats.PlayerDamage
 	]
+var playerturn_damage
 
 signal next_player
 @onready var choice = $"../CanvasLayer/choice"
 
 func _ready():
+	randomize()
 	enemies = get_children()
 	for i in enemies.size():
 		enemies[i].position = Vector2(i*-64, i*128)
@@ -46,7 +49,8 @@ func _process(_delta):
 
 func _action(stack):
 	for i in stack:
-		enemies[i].take_damage(player_damages[i])
+		playerturn_damage = int(rng.randf_range(player_damages[i]*0.8, player_damages[i]*1.2))
+		enemies[i].take_damage(playerturn_damage)
 		await get_tree().create_timer(1).timeout
 	action_queue.clear()
 	is_battling = false
