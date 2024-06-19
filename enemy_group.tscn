@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6ckcmt6vn1kb"]
+
+[ext_resource type="PackedScene" uid="uid://36cibapy05jx" path="res://character.tscn" id="1_pjf0h"]
+[ext_resource type="Script" path="res://enemy_group.gd" id="1_qg3t1"]
+
+[node name="EnemyGroup" type="Node2D"]
+script = ExtResource("1_qg3t1")
+
+[node name="Character" parent="." instance=ExtResource("1_pjf0h")]
+
+[node name="Character2" parent="." instance=ExtResource("1_pjf0h")]
+
+[node name="Character3" parent="." instance=ExtResource("1_pjf0h")]
+
+[node name="Character4" parent="." instance=ExtResource("1_pjf0h")]

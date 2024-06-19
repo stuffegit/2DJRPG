@@ -1,0 +1,169 @@
+[gd_scene load_steps=14 format=3 uid="uid://36cibapy05jx"]
+
+[ext_resource type="Script" path="res://character.gd" id="1_0pecf"]
+[ext_resource type="Texture2D" uid="uid://b21n38uxifsr0" path="res://assets/anim/slime/Slime-0001.png" id="1_wuf0r"]
+[ext_resource type="Texture2D" uid="uid://doieu3njvpwj6" path="res://assets/ui/Crisis_core_cursor.webp" id="2_5j85h"]
+[ext_resource type="FontFile" uid="uid://b40etf1d71sjq" path="res://assets/ui/fonts/final_fantasy_36_font.ttf" id="3_rxwtk"]
+[ext_resource type="Script" path="res://TextPopupLocation.gd" id="5_tkxsb"]
+
+[sub_resource type="FontVariation" id="FontVariation_8b08i"]
+base_font = ExtResource("3_rxwtk")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_607s8"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5ny7"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_o602d"]
+base_font = ExtResource("3_rxwtk")
+
+[sub_resource type="Animation" id="Animation_mirm4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextPopupLocation/Label:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.5, 1.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TextPopupLocation/Label:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_f53wy"]
+resource_name = "dmg_popup"
+length = 0.75
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextPopupLocation/Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextPopupLocation/Label:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.55, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mn8ex"]
+resource_name = "hurt"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nrynh"]
+_data = {
+"RESET": SubResource("Animation_mirm4"),
+"dmg_popup": SubResource("Animation_f53wy"),
+"hurt": SubResource("Animation_mn8ex")
+}
+
+[node name="Character" type="CharacterBody2D"]
+texture_filter = 1
+scale = Vector2(2, 2)
+script = ExtResource("1_0pecf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(2, 2)
+texture = ExtResource("1_wuf0r")
+
+[node name="focus" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-50, 0)
+texture = ExtResource("2_5j85h")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -25.0
+offset_top = -50.0
+offset_right = 75.0
+offset_bottom = -27.0
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = SubResource("FontVariation_8b08i")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/background = SubResource("StyleBoxFlat_607s8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_h5ny7")
+value = 100.0
+
+[node name="TextPopupLocation" type="Marker2D" parent="."]
+position = Vector2(0, -20)
+script = ExtResource("5_tkxsb")
+
+[node name="Label" type="Label" parent="TextPopupLocation"]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -15.02
+offset_right = 20.0
+offset_bottom = 7.98
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.5, 1.5)
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontVariation_o602d")
+theme_override_font_sizes/font_size = 32
+text = "Undefined Damage"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_nrynh")
+}
