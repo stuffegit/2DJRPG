@@ -53,7 +53,7 @@ func _process(_delta):
 func _action(stack):
 	choice.hide()
 	for i in GlobalVars.PlayerAmount:
-		var focusremover = get_node("../PlayerGroup/Character" + str(i) + "/focus")
+		var focusremover = get_node("../PlayerGroup/Character" + str(i+1) + "/focus")
 		if focusremover:
 			focusremover.hide()
 		#print(get_node("../PlayerGroup/Character" + str(i) + "/focus"))
@@ -61,10 +61,12 @@ func _action(stack):
 		playerturn_damage = int(rng.randf_range(player_damages[i]*0.8, player_damages[i]*1.2))
 		enemies[i].take_damage(playerturn_damage, i)
 		await get_tree().create_timer(1).timeout
+	GlobalVars.PlayerTurn = false
 	for i in enemies:
 		playertarget = int(rng.randf_range(0, GlobalVars.PlayerAmount))
 		players[playertarget].take_damage(CurrentEnemy.EnemyAttack, playertarget)
 		await get_tree().create_timer(1).timeout
+	GlobalVars.PlayerTurn = true
 	show_choice()
 	resetfocus.show()
 	action_queue.clear()

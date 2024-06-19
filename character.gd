@@ -13,23 +13,44 @@ var players = [
 	]
 
 
+
 @export var MAX_HEALTH: float = Player1Stats.PlayerMaxHP
  
-var health: float = Player1Stats.PlayerHP:
+var playerhealth: float = Player1Stats.PlayerHP:
 	set(value):
-		health = value
-		var health_string = "health: {health}"
-		var health_print = health_string.format({"health": health})
-		print(health_print)
-		var value_string = "value: {value}"
-		var value_print = value_string.format({"value": value})
-		print(value_print)
-		_update_progress_bar()
+		playerhealth = value
+		_play_animation()
+		floating_numbers.popup()
+		
+var enemyhealth: float = CurrentEnemy.EnemyHP:
+	set(value):
+		enemyhealth = value
 		_play_animation()
 		floating_numbers.popup()
  
-func _update_progress_bar():
-	progress_bar.value = (Player1Stats.PlayerHP/Player1Stats.PlayerMaxHP) * 100
+func _ready():
+	_update_progress_bar_players()
+	_update_progress_bar_enemies()
+
+func _update_progress_bar_players():
+	for i in GlobalVars.PlayerAmount:
+		var str_i: String = str(i+1)
+		var playerprogbar = get_node("../../PlayerGroup/Character" + str_i + "/ProgressBar")
+		print(playerprogbar.value)
+		#if playerprogbar:
+			#print(progbar)
+		playerprogbar.max_value = int(players[i].PlayerMaxHP)
+		playerprogbar.value = int(players[i].PlayerHP)
+			
+
+func _update_progress_bar_enemies():
+	var enemies = get_node("../../EnemyGroup").get_children()
+	for i in enemies.size():
+		var str_i: String = str(i+1)
+		var enemyprogbar = get_node("../../EnemyGroup/Character" + str_i + "/ProgressBar")
+		if enemyprogbar:
+			enemyprogbar.max_value = CurrentEnemy.EnemyMaxHP
+			enemyprogbar.value = CurrentEnemy.EnemyHP
  
 func _play_animation():
 	animation_player.play("hurt")
@@ -41,15 +62,38 @@ func unfocus():
 	_focus.hide()
  
 func take_damage(value, target):
-	health -= value
-	var health_string = "func health: {health}"
-	var health_print = health_string.format({"health": health})
-	print(health_print)
-	var value_string = "func value: {value}"
-	var value_print = value_string.format({"value": value})
-	print(value_print)
-	var target_string = "func target: {target}"
-	var target_print = target_string.format({"target": target})
-	print(target_print)
-	players[target].PlayerHP -= value
-	damage_numbers.text = str(value)
+	if GlobalVars.PlayerTurn == false:
+		print(players[target].PlayerHP)
+		players[target].PlayerHP -= value
+		get_node("../../PlayerGroup/Character" + str(target+1) + "/ProgressBar").value = int(players[target].PlayerHP)
+		print(players[target].PlayerHP)
+		playerhealth -= value
+		damage_numbers.text = str(value)
+		
+		#var target_string = "target is player: {target}"
+		#var target_print = target_string.format({"target": target})
+		#print(target_print)
+		#var health_string = "health of player: {health}"
+		#var health_print = health_string.format({"health": playerhealth})
+		#print(health_print)
+		#var value_string = "damage value: {value}"
+		#var value_print = value_string.format({"value": value})
+		#print(value_print)
+		
+	if GlobalVars.PlayerTurn == true:
+		CurrentEnemy.EnemyHP -= value
+		enemyhealth -= value
+		damage_numbers.text = str(value)
+		
+		#var target_string = "target is enemy: {target}"
+		#var target_print = target_string.format({"target": target})
+		#print(target_print)
+		#var health_string = "health of enemy: {health}"
+		#var health_print = health_string.format({"health": enemyhealth})
+		#print(health_print)
+		#var value_string = "damage value: {value}"
+		#var value_print = value_string.format({"value": value})
+		#print(value_print)
+		
+	_update_progress_bar_players()
+	_update_progress_bar_enemies()

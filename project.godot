@@ -28,6 +28,9 @@ CurrentEnemy="*res://CurrentEnemy.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/initial_position_type=0
+window/size/initial_position=Vector2i(1000, 0)
+window/size/resizable=false
 
 [editor]
 
