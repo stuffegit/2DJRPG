@@ -22,6 +22,7 @@ Player2Stats="*res://Player2Stats.gd"
 Player3Stats="*res://Player3Stats.gd"
 Player4Stats="*res://Player4Stats.gd"
 GlobalVars="*res://GlobalVars.gd"
+CurrentEnemy="*res://CurrentEnemy.gd"
 
 [display]
 

@@ -2,6 +2,7 @@ extends Node2D
 
 var rng = RandomNumberGenerator.new()
 var enemies: Array = []
+var players: Array = []
 var action_queue: Array = []
 var is_battling: bool = false
 var index: int = 0
@@ -12,6 +13,9 @@ var player_damages = [
 		Player4Stats.PlayerDamage
 	]
 var playerturn_damage
+var playertarget
+@onready var resetfocus = get_node("../PlayerGroup/Character1/focus")
+
 
 signal next_player
 @onready var choice = $"../CanvasLayer/choice"
@@ -19,9 +23,9 @@ signal next_player
 func _ready():
 	randomize()
 	enemies = get_children()
+	players = get_node("../PlayerGroup").get_children()
 	for i in enemies.size():
 		enemies[i].position = Vector2(i*-64, i*128)
-		
 	show_choice()
 		
 func _process(_delta):
@@ -45,16 +49,26 @@ func _process(_delta):
 		is_battling = true
 		_action(action_queue)
 		_reset_focus()
-		# Enemy Turn
 
 func _action(stack):
+	choice.hide()
+	for i in GlobalVars.PlayerAmount:
+		var focusremover = get_node("../PlayerGroup/Character" + str(i) + "/focus")
+		if focusremover:
+			focusremover.hide()
+		#print(get_node("../PlayerGroup/Character" + str(i) + "/focus"))
 	for i in stack:
 		playerturn_damage = int(rng.randf_range(player_damages[i]*0.8, player_damages[i]*1.2))
-		enemies[i].take_damage(playerturn_damage)
+		enemies[i].take_damage(playerturn_damage, i)
 		await get_tree().create_timer(1).timeout
+	for i in enemies:
+		playertarget = int(rng.randf_range(0, GlobalVars.PlayerAmount))
+		players[playertarget].take_damage(CurrentEnemy.EnemyAttack, playertarget)
+		await get_tree().create_timer(1).timeout
+	show_choice()
+	resetfocus.show()
 	action_queue.clear()
 	is_battling = false
-	show_choice()
 
 func switch_focus(x,y):
 	enemies[x].focus()

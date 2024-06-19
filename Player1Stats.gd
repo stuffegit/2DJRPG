@@ -6,6 +6,7 @@ var PlayerExp: int = 0
 var PlayerExpToNext: int = 100
 var PlayerExpTotal: int = 0
 var PlayerHP: int = 100
+var PlayerMaxHP: int = PlayerHP
 var PlayerHPGain: int = 10
 var PlayerStrength: int = 4
 var PlayerStrengthGain = 4
