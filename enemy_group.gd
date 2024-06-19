@@ -18,6 +18,12 @@ var enemy_damage = [
 		Enemy3Stats.EnemyAttack,
 		Enemy4Stats.EnemyAttack
 	]
+var EnemyStats = [
+		Enemy1Stats,
+		Enemy2Stats,
+		Enemy3Stats,
+		Enemy4Stats
+	]
 var playerturn_damage
 var enemyturn_damage
 var playertarget
@@ -69,10 +75,11 @@ func _action(stack):
 		await get_tree().create_timer(1).timeout
 	GlobalVars.PlayerTurn = false
 	for i in range(enemies.size()):
-		playertarget = int(rng.randf_range(0, GlobalVars.PlayerAmount))
-		enemyturn_damage = int(rng.randf_range(enemy_damage[i]*0.8, enemy_damage[i]*1.2))
-		players[playertarget].take_damage(enemyturn_damage, playertarget)
-		await get_tree().create_timer(1).timeout
+		if EnemyStats[i].EnemyDefeated == false:
+			playertarget = int(rng.randf_range(0, GlobalVars.PlayerAmount))
+			enemyturn_damage = int(rng.randf_range(enemy_damage[i]*0.8, enemy_damage[i]*1.2))
+			players[playertarget].take_damage(enemyturn_damage, playertarget)
+			await get_tree().create_timer(1).timeout
 	GlobalVars.PlayerTurn = true
 	show_choice()
 	resetfocus.show()

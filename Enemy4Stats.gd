@@ -2,6 +2,7 @@ extends Node
 
 #var rng = RandomNumberGenerator.new()
 var EnemyName: String = "Unnamed enemy"
+var EnemyDefeated: bool = false
 var EnemyLevel: int = 1
 var EnemyMaxHP: float = 15
 var EnemyHP: float = 15
