@@ -1,13 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://b6ckcmt6vn1kb"]
+[gd_scene load_steps=9 format=3 uid="uid://b6ckcmt6vn1kb"]
 
-[ext_resource type="PackedScene" uid="uid://36cibapy05jx" path="res://character.tscn" id="1_pjf0h"]
 [ext_resource type="Script" path="res://enemy_group.gd" id="1_qg3t1"]
+[ext_resource type="PackedScene" uid="uid://7bypc5xjh15f" path="res://enemy.tscn" id="2_ux853"]
 [ext_resource type="Texture2D" uid="uid://b21n38uxifsr0" path="res://assets/anim/slime/Slime-0001.png" id="3_33gt1"]
+[ext_resource type="Resource" uid="uid://0yekwne21yhh" path="res://classes/chartype/monsters/CT_slime.tres" id="3_xsdxh"]
 [ext_resource type="Texture2D" uid="uid://co3typwa6t315" path="res://assets/anim/slime/Slime-0002.png" id="4_kliwl"]
 [ext_resource type="Texture2D" uid="uid://bl34eprp6myl" path="res://assets/anim/slime/Slime-0003.png" id="5_uxx7u"]
 [ext_resource type="Texture2D" uid="uid://x5cdybhu6ww1" path="res://assets/anim/slime/Slime-0004.png" id="6_ga8fb"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_fwpm6"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_ir142"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -30,27 +31,17 @@ animations = [{
 [node name="EnemyGroup" type="Node2D"]
 script = ExtResource("1_qg3t1")
 
-[node name="Character1" parent="." instance=ExtResource("1_pjf0h")]
+[node name="Enemy1" parent="." instance=ExtResource("2_ux853")]
+chartype = ExtResource("3_xsdxh")
 
-[node name="Sprite2D" parent="Character1" index="1"]
-sprite_frames = SubResource("SpriteFrames_fwpm6")
+[node name="Sprite2D" parent="Enemy1" index="1"]
+sprite_frames = SubResource("SpriteFrames_ir142")
 
-[node name="Character2" parent="." instance=ExtResource("1_pjf0h")]
+[node name="Enemy2" parent="." instance=ExtResource("2_ux853")]
+chartype = ExtResource("3_xsdxh")
 
-[node name="Sprite2D" parent="Character2" index="1"]
-sprite_frames = SubResource("SpriteFrames_fwpm6")
+[node name="Sprite2D" parent="Enemy2" index="1"]
+sprite_frames = SubResource("SpriteFrames_ir142")
 
-[node name="Character3" parent="." instance=ExtResource("1_pjf0h")]
-
-[node name="Sprite2D" parent="Character3" index="1"]
-sprite_frames = SubResource("SpriteFrames_fwpm6")
-
-[node name="Character4" parent="." instance=ExtResource("1_pjf0h")]
-
-[node name="Sprite2D" parent="Character4" index="1"]
-sprite_frames = SubResource("SpriteFrames_fwpm6")
-
-[editable path="Character1"]
-[editable path="Character2"]
-[editable path="Character3"]
-[editable path="Character4"]
+[editable path="Enemy1"]
+[editable path="Enemy2"]

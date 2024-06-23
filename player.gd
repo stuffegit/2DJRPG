@@ -2,73 +2,148 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 
-var rng = RandomNumberGenerator.new()
+# Baseline Character Stats
+@export var Name: String = "Unnamed"
+@export var Icon: Texture2D = null
+@export var Level: int = 1
+@export var MaxHP: float = 0
+@export var HP: float = 0
+@export var Armor: int = 0
+@export var Attack = 0
+@export var Damage: int = 0
+var InBattle: bool = false
 
-func level_up():
-	Player1Stats.PlayerStrengthGain = 4+0.3*(Player1Stats.PlayerLevel)
-	Player1Stats.PlayerAgilityGain = 2+0.15*(Player1Stats.PlayerLevel)
-	Player1Stats.PlayerVitalityGain = 3+0.3*(Player1Stats.PlayerLevel)
-	Player1Stats.PlayerSpiritGain = 1+0.05*(Player1Stats.PlayerLevel)
-	Player1Stats.PlayerHPGain = 10+0.5*(Player1Stats.PlayerLevel)
-	#var str_string = "Strength: {strgain}"
-	#var str_print = str_string.format({"strgain": Player1Stats.PlayerStrengthGain})
-	#print(str_print)
-	#var agi_string = "Agility : {agigain}"
-	#var agi_print = agi_string.format({"agigain": Player1Stats.PlayerAgilityGain})
-	#print(agi_print)
-	#var vit_string = "Vitality: {vitgain}"
-	#var vit_print = vit_string.format({"vitgain": Player1Stats.PlayerVitalityGain})
-	#print(vit_print)
-	#var spi_string = "Spirit  : {spigain}"
-	#var spi_print = spi_string.format({"spigain": Player1Stats.PlayerSpiritGain})
-	#print(spi_print)
-	#var hp_string = "HP      : {hpgain}"
-	#var hp_print = hp_string.format({"hpgain": Player1Stats.PlayerHPGain})
-	#print(hp_print)
-	Player1Stats.PlayerLevel += 1
-	Player1Stats.PlayerStrength += int(rng.randf_range(Player1Stats.PlayerStrengthGain, Player1Stats.PlayerStrengthGain*1.5))
-	Player1Stats.PlayerAgility += int(rng.randf_range(Player1Stats.PlayerAgilityGain, Player1Stats.PlayerAgilityGain*1.5))
-	Player1Stats.PlayerVitality += int(rng.randf_range(Player1Stats.PlayerVitalityGain, Player1Stats.PlayerVitalityGain*1.5))
-	Player1Stats.PlayerSpirit += int(rng.randf_range(Player1Stats.PlayerSpiritGain, Player1Stats.PlayerSpiritGain*1.5))
-	Player1Stats.PlayerHP += int(rng.randf_range(Player1Stats.PlayerHPGain, Player1Stats.PlayerHPGain*1.5))
+# Player specific
+@export var Exp: int = 0
+@export var ExpToNext: int = 0
+@export var ExpTotal: int = 0
+
+# Job specific
+@export var HPGain: float = 0
+@export var Strength: float = 0
+@export var StrengthGain: float = 0
+@export var Agility: float = 0
+@export var AgilityGain: float = 0
+@export var Vitality: float = 0
+@export var VitalityGain: float = 0
+@export var Spirit: float = 0
+@export var SpiritGain: float = 0
+
+@export var chartype : CharType
+
+@onready var _focus = $focus
+@onready var progress_bar = $ProgressBar
+@onready var animation_player = %AnimationPlayer
+@onready var floating_numbers = $TextPopupLocation
+@onready var damage_numbers = %Label
+
+@onready var player = self
+
+
+ 
+var playerhealth: float:
+	set(value):
+		playerhealth = value
+		_play_animation()
+		floating_numbers.popup()
 		
-	update_stat_labels()
+var enemyhealth: float:
+	set(value):
+		enemyhealth = value
+		_play_animation()
+		floating_numbers.popup()
 
-func gain_exp(value):
-	Player1Stats.PlayerExp += value
-	Player1Stats.PlayerExpTotal += value
-	
-	while Player1Stats.PlayerExp >= Player1Stats.PlayerExpToNext:
-		Player1Stats.PlayerExp -= Player1Stats.PlayerExpToNext
-		level_up()
+func initialize_job_stats():
+	HP = chartype.HP
+	Name = chartype.Name
+	Level = chartype.Level
+	MaxHP = chartype.MaxHP
+	HP = chartype.HP
+	Armor = chartype.Armor
+	Attack = chartype.Attack
 
-func update_stat_labels():
-	%Label.text = str(Player1Stats.PlayerLevel)
-	%HP.text = str(Player1Stats.PlayerHP)
-	%Strength.text = str(Player1Stats.PlayerStrength)
-	%Vitality.text = str(Player1Stats.PlayerVitality)
-	%Agility.text = str(Player1Stats.PlayerAgility)
-	%Spirit.text = str(Player1Stats.PlayerSpirit)
-	%ProgressBar.max_value = Player1Stats.PlayerExpToNext
-	%ProgressBar.value = Player1Stats.PlayerExp
-
-func _on_gain_exp_pressed():
-	gain_exp(Player1Stats.PlayerExpToNext)
-	update_stat_labels()
-
+	# Job specific
+	HPGain = chartype.HPGain
+	Strength = chartype.Strength
+	StrengthGain = chartype.StrengthGain
+	Agility = chartype.Agility
+	AgilityGain = chartype.AgilityGain
+	Vitality = chartype.Vitality
+	VitalityGain = chartype.VitalityGain
+	Spirit = chartype.Spirit
+	SpiritGain = chartype.SpiritGain
+ 
 func _ready():
-	update_stat_labels()
+	_update_progress_bar_players()
 
-func _physics_process(delta):
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("ui_left", "ui_right")
+func _update_progress_bar_players():
+	$HPLabel.text = str(HP)
+	$ProgressBar.max_value = int(MaxHP)
+	$ProgressBar.value = int(HP)
+
+ 
+func _play_animation():
+	animation_player.play("hurt")
+ 
+func focus():
+	_focus.show()
+ 
+func unfocus():
+	_focus.hide()
+ 
+func take_damage(value):
+	print(str(HP))
+	HP -= value
+	progress_bar.value = int(HP)
+	print(str(HP))
+	playerhealth -= value
+	damage_numbers.text = str(value)
+
+	print("target is player")
+	print("health of player: "+str(playerhealth))
+	print("damage value: "+str(value))
+		
+	_update_progress_bar_players()
+
+func update_sprite_facing():
+	var input_dir = Vector2.ZERO
+	input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var direction = Vector2(input_dir.x,input_dir.y)
+	if direction.x > 0.5 and direction.y > 0.5:
+		if $Sprite2D.frame != 2:
+			$Sprite2D.frame = 2 # DownRight
+	elif direction.x < 0 and direction.y > 0.5:
+		if $Sprite2D.frame != 3:
+			$Sprite2D.frame = 3 # DownLeft
+	elif direction.x > 0.5 and direction.y < 0:
+		if $Sprite2D.frame != 2:
+			$Sprite2D.frame = 2  # UpRight
+	elif direction.x < 0 and direction.y < 0:
+		if $Sprite2D.frame != 3:
+			$Sprite2D.frame = 3 # UpLeft
+	elif direction.x > 0.5:
+		if $Sprite2D.frame != 2:
+			$Sprite2D.frame = 2 # Right
+	elif direction.x < 0:
+		if $Sprite2D.frame != 3:
+			$Sprite2D.frame = 3 # Left
+	elif direction.y > 0.5:
+		if $Sprite2D.frame != 0:
+			$Sprite2D.frame = 0 # Up
+	elif direction.y < 0:
+		if $Sprite2D.frame != 1:
+			$Sprite2D.frame = 1 # Down
+
+func _physics_process(_delta):
+	var input_dir = Vector2.ZERO
+	input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var direction = Vector2(input_dir.x, input_dir.y)
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = direction.x * SPEED
+		velocity.y = direction.y * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-
-	move_and_slide()
-
-
-
+		velocity.y = move_toward(velocity.y, 0, SPEED)
+	if InBattle == false:
+		update_sprite_facing()
+		move_and_slide()

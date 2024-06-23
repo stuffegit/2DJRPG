@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CharType" load_steps=2 format=3 uid="uid://bl05iw0l0nfhx"]
+
+[ext_resource type="Script" path="res://classes/chartype/chartype_blueprint.gd" id="1_nynbh"]
+
+[resource]
+script = ExtResource("1_nynbh")
+Name = "Unnamed"
+Level = 1
+MaxHP = 0.0
+HP = 70.0
+Armor = 3
+Attack = 5
+Damage = 0
+Exp = 0
+ExpToNext = 1000
+ExpTotal = 0
+HPGain = 15.0
+Strength = 4.0
+StrengthGain = 0.0
+Agility = 2.0
+AgilityGain = 0.0
+Vitality = 3.0
+VitalityGain = 0.0
+Spirit = 1.0
+SpiritGain = 0.0

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CharType" load_steps=2 format=3 uid="uid://0yekwne21yhh"]
+
+[ext_resource type="Script" path="res://classes/chartype/chartype_blueprint.gd" id="1_6salx"]
+
+[resource]
+script = ExtResource("1_6salx")
+Name = "Unnamed"
+Level = 1
+MaxHP = 0.0
+HP = 10.0
+Armor = 0
+Attack = 2
+Damage = 0
+Exp = 0
+ExpToNext = 0
+ExpTotal = 0
+HPGain = 0.0
+Strength = 0.0
+StrengthGain = 0.0
+Agility = 0.0
+AgilityGain = 0.0
+Vitality = 0.0
+VitalityGain = 0.0
+Spirit = 0.0
+SpiritGain = 0.0

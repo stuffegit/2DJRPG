@@ -1,31 +1,48 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0h0gth5xr531"]
+[gd_scene load_steps=8 format=3 uid="uid://d0h0gth5xr531"]
 
 [ext_resource type="Texture2D" uid="uid://dy1dvmjc67je0" path="res://assets/worldtextures/battle-background/battleback10.png" id="1_uhm05"]
 [ext_resource type="PackedScene" uid="uid://b6ckcmt6vn1kb" path="res://enemy_group.tscn" id="1_xodlp"]
-[ext_resource type="PackedScene" uid="uid://d2718edcci2ah" path="res://player_group.tscn" id="3_8boiu"]
-[ext_resource type="Script" path="res://player_group.gd" id="4_st7m4"]
+[ext_resource type="Script" path="res://battle_scene.gd" id="1_y2hss"]
+[ext_resource type="PackedScene" uid="uid://36cibapy05jx" path="res://player.tscn" id="3_8boiu"]
 [ext_resource type="FontFile" uid="uid://b40etf1d71sjq" path="res://assets/ui/fonts/final_fantasy_36_font.ttf" id="5_fnd43"]
+
+[sub_resource type="FontVariation" id="FontVariation_yvcs8"]
+base_font = ExtResource("5_fnd43")
 
 [sub_resource type="FontVariation" id="FontVariation_d2cdx"]
 base_font = ExtResource("5_fnd43")
 
 [node name="BattleScene" type="Node2D"]
+script = ExtResource("1_y2hss")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_right = 1920.0
 offset_bottom = 1080.0
 texture = ExtResource("1_uhm05")
 
+[node name="GameStateLabel" type="Label" parent="."]
+unique_name_in_owner = true
+offset_left = 866.0
+offset_top = 52.0
+offset_right = 1154.0
+offset_bottom = 108.0
+theme_override_fonts/font = SubResource("FontVariation_yvcs8")
+theme_override_font_sizes/font_size = 64
+text = "6969696969"
+
 [node name="EnemyGroup" parent="." instance=ExtResource("1_xodlp")]
 position = Vector2(575, 422)
 
-[node name="PlayerGroup" parent="." instance=ExtResource("3_8boiu")]
-position = Vector2(1651, 418)
-script = ExtResource("4_st7m4")
+[node name="Player" parent="." instance=ExtResource("3_8boiu")]
+position = Vector2(1533, 584)
+
+[node name="Sprite2D" parent="Player" index="0"]
+frame = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="choice" type="VBoxContainer" parent="CanvasLayer"]
+visible = false
 texture_filter = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -33,7 +50,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -100.0
-offset_top = -211.0
+offset_top = -241.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(2, 2)
@@ -81,5 +98,6 @@ theme_override_font_sizes/font_size = 32
 disabled = true
 text = "Escape"
 
-[connection signal="next_player" from="EnemyGroup" to="PlayerGroup" method="_on_enemy_group_next_player"]
-[connection signal="pressed" from="CanvasLayer/choice/Attack" to="EnemyGroup" method="_on_attack_pressed"]
+[connection signal="pressed" from="CanvasLayer/choice/Attack" to="." method="_on_attack_pressed"]
+
+[editable path="Player"]

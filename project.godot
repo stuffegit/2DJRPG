@@ -17,15 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Player1Stats="*res://Player1Stats.gd"
-Player2Stats="*res://Player2Stats.gd"
-Player3Stats="*res://Player3Stats.gd"
-Player4Stats="*res://Player4Stats.gd"
 GlobalVars="*res://GlobalVars.gd"
-Enemy1Stats="*res://Enemy1Stats.gd"
-Enemy2Stats="*res://Enemy2Stats.gd"
-Enemy3Stats="*res://Enemy3Stats.gd"
-Enemy4Stats="*res://Enemy4Stats.gd"
 
 [display]
 
@@ -39,6 +31,10 @@ window/size/resizable=false
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[filesystem]
+
+import/blender/enabled=false
 
 [input]
 

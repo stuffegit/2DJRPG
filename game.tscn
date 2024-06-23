@@ -1,0 +1,94 @@
+[gd_scene load_steps=4 format=3 uid="uid://doyv4b78p2cjd"]
+
+[ext_resource type="PackedScene" uid="uid://36cibapy05jx" path="res://player.tscn" id="1_cw8in"]
+[ext_resource type="Script" path="res://game.gd" id="1_cwudv"]
+[ext_resource type="Texture2D" uid="uid://xtrs8yw86mlt" path="res://assets/worldtextures/battle-background/battleback5.png" id="1_uish2"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_cwudv")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+texture = ExtResource("1_uish2")
+
+[node name="Player" parent="." instance=ExtResource("1_cw8in")]
+position = Vector2(996, 617)
+HP = 30.0
+ExpToNext = 1000
+Strength = 4.0
+Agility = 2.0
+Vitality = 3.0
+Spirit = 1.0
+
+[node name="Foreground" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="DebugLabels" type="Node" parent="UI"]
+
+[node name="Label" type="Label" parent="UI/DebugLabels"]
+unique_name_in_owner = true
+visible = false
+offset_left = 1259.0
+offset_top = 525.0
+offset_right = 1299.0
+offset_bottom = 548.0
+text = "69"
+
+[node name="HP" type="Label" parent="UI/DebugLabels"]
+unique_name_in_owner = true
+visible = false
+offset_left = 1261.0
+offset_top = 547.0
+offset_right = 1301.0
+offset_bottom = 570.0
+text = "69"
+
+[node name="Strength" type="Label" parent="UI/DebugLabels"]
+unique_name_in_owner = true
+visible = false
+offset_left = 1261.0
+offset_top = 569.0
+offset_right = 1301.0
+offset_bottom = 592.0
+text = "69"
+
+[node name="Agility" type="Label" parent="UI/DebugLabels"]
+unique_name_in_owner = true
+visible = false
+offset_left = 1262.0
+offset_top = 592.0
+offset_right = 1302.0
+offset_bottom = 615.0
+text = "69"
+
+[node name="Vitality" type="Label" parent="UI/DebugLabels"]
+unique_name_in_owner = true
+visible = false
+offset_left = 1263.0
+offset_top = 613.0
+offset_right = 1303.0
+offset_bottom = 636.0
+text = "69"
+
+[node name="Spirit" type="Label" parent="UI/DebugLabels"]
+unique_name_in_owner = true
+visible = false
+offset_left = 1264.0
+offset_top = 634.0
+offset_right = 1304.0
+offset_bottom = 657.0
+text = "69"
+
+[node name="Button" type="Button" parent="UI/DebugLabels"]
+visible = false
+offset_left = 1088.0
+offset_top = 522.0
+offset_right = 1146.0
+offset_bottom = 553.0
+text = "LVLUP"
+
+[connection signal="pressed" from="UI/DebugLabels/Button" to="." method="_on_button_pressed"]

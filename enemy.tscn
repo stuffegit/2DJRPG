@@ -1,15 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://36cibapy05jx"]
+[gd_scene load_steps=14 format=3 uid="uid://7bypc5xjh15f"]
 
-[ext_resource type="Script" path="res://character.gd" id="1_0pecf"]
-[ext_resource type="Texture2D" uid="uid://doieu3njvpwj6" path="res://assets/ui/Crisis_core_cursor.webp" id="2_5j85h"]
-[ext_resource type="FontFile" uid="uid://b40etf1d71sjq" path="res://assets/ui/fonts/final_fantasy_36_font.ttf" id="3_rxwtk"]
-[ext_resource type="Script" path="res://TextPopupLocation.gd" id="5_tkxsb"]
+[ext_resource type="Script" path="res://enemy.gd" id="1_6rgc7"]
+[ext_resource type="Texture2D" uid="uid://doieu3njvpwj6" path="res://assets/ui/Crisis_core_cursor.webp" id="2_1458o"]
+[ext_resource type="FontFile" uid="uid://b40etf1d71sjq" path="res://assets/ui/fonts/final_fantasy_36_font.ttf" id="3_h1lqx"]
+[ext_resource type="Script" path="res://TextPopupLocation.gd" id="4_6aifg"]
 
 [sub_resource type="FontVariation" id="FontVariation_p8ev0"]
-base_font = ExtResource("3_rxwtk")
+base_font = ExtResource("3_h1lqx")
 
 [sub_resource type="FontVariation" id="FontVariation_8b08i"]
-base_font = ExtResource("3_rxwtk")
+base_font = ExtResource("3_h1lqx")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_607s8"]
 bg_color = Color(1, 1, 1, 0)
@@ -18,7 +18,7 @@ bg_color = Color(1, 1, 1, 0)
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="FontVariation" id="FontVariation_o602d"]
-base_font = ExtResource("3_rxwtk")
+base_font = ExtResource("3_h1lqx")
 
 [sub_resource type="Animation" id="Animation_mirm4"]
 length = 0.001
@@ -135,10 +135,10 @@ _data = {
 "hurt": SubResource("Animation_mn8ex")
 }
 
-[node name="Character" type="CharacterBody2D"]
+[node name="Enemy" type="CharacterBody2D"]
 texture_filter = 1
 scale = Vector2(2, 2)
-script = ExtResource("1_0pecf")
+script = ExtResource("1_6rgc7")
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
@@ -150,7 +150,7 @@ autoplay = "default"
 [node name="focus" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(-50, 0)
-texture = ExtResource("2_5j85h")
+texture = ExtResource("2_1458o")
 
 [node name="HPLabel" type="Label" parent="."]
 offset_left = 28.0
@@ -175,7 +175,7 @@ value = 69.0
 
 [node name="TextPopupLocation" type="Marker2D" parent="."]
 position = Vector2(0, -20)
-script = ExtResource("5_tkxsb")
+script = ExtResource("4_6aifg")
 
 [node name="Label" type="Label" parent="TextPopupLocation"]
 unique_name_in_owner = true
