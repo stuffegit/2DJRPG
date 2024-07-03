@@ -2,14 +2,14 @@ extends Marker2D
  
 @onready var damage = $Label
 @onready var reset_damage_pos = damage.position
-@onready var animation_player = %AnimationPlayer
+#@onready var animation_player = %AnimationPlayer
 
 func _ready():
 	randomize()
 
 func popup():
 	damage.position = reset_damage_pos
-	animation_player.play("dmg_popup")
+	#animation_player.play("popup")
 
 	var tween = get_tree().create_tween()
 	tween.tween_property(damage,

@@ -1,27 +1,26 @@
-[gd_scene load_steps=9 format=3 uid="uid://b6ckcmt6vn1kb"]
+[gd_scene load_steps=8 format=3 uid="uid://b6ckcmt6vn1kb"]
 
-[ext_resource type="Script" path="res://enemy_group.gd" id="1_qg3t1"]
-[ext_resource type="PackedScene" uid="uid://7bypc5xjh15f" path="res://enemy.tscn" id="2_ux853"]
-[ext_resource type="Texture2D" uid="uid://b21n38uxifsr0" path="res://assets/anim/slime/Slime-0001.png" id="3_33gt1"]
-[ext_resource type="Resource" uid="uid://0yekwne21yhh" path="res://classes/chartype/monsters/CT_slime.tres" id="3_xsdxh"]
-[ext_resource type="Texture2D" uid="uid://co3typwa6t315" path="res://assets/anim/slime/Slime-0002.png" id="4_kliwl"]
-[ext_resource type="Texture2D" uid="uid://bl34eprp6myl" path="res://assets/anim/slime/Slime-0003.png" id="5_uxx7u"]
-[ext_resource type="Texture2D" uid="uid://x5cdybhu6ww1" path="res://assets/anim/slime/Slime-0004.png" id="6_ga8fb"]
+[ext_resource type="Script" path="res://enemy_group.gd" id="1_gmhq1"]
+[ext_resource type="PackedScene" uid="uid://36cibapy05jx" path="res://enemy.tscn" id="2_3hvuw"]
+[ext_resource type="Texture2D" uid="uid://b21n38uxifsr0" path="res://assets/anim/slime/Slime-0001.png" id="3_yljla"]
+[ext_resource type="Texture2D" uid="uid://co3typwa6t315" path="res://assets/anim/slime/Slime-0002.png" id="4_kxml5"]
+[ext_resource type="Texture2D" uid="uid://bl34eprp6myl" path="res://assets/anim/slime/Slime-0003.png" id="5_gv6yg"]
+[ext_resource type="Texture2D" uid="uid://x5cdybhu6ww1" path="res://assets/anim/slime/Slime-0004.png" id="6_b5h5y"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ir142"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_upihd"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_33gt1")
+"texture": ExtResource("3_yljla")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_kliwl")
+"texture": ExtResource("4_kxml5")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_uxx7u")
+"texture": ExtResource("5_gv6yg")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_ga8fb")
+"texture": ExtResource("6_b5h5y")
 }],
 "loop": true,
 "name": &"default",
@@ -29,19 +28,30 @@ animations = [{
 }]
 
 [node name="EnemyGroup" type="Node2D"]
-script = ExtResource("1_qg3t1")
+script = ExtResource("1_gmhq1")
 
-[node name="Enemy1" parent="." instance=ExtResource("2_ux853")]
-chartype = ExtResource("3_xsdxh")
+[node name="Enemy1" parent="." instance=ExtResource("2_3hvuw")]
 
-[node name="Sprite2D" parent="Enemy1" index="1"]
-sprite_frames = SubResource("SpriteFrames_ir142")
+[node name="AnimatedSprite2D" parent="Enemy1" index="1"]
+sprite_frames = SubResource("SpriteFrames_upihd")
+autoplay = "default"
 
-[node name="Enemy2" parent="." instance=ExtResource("2_ux853")]
-chartype = ExtResource("3_xsdxh")
+[node name="Enemy2" parent="." instance=ExtResource("2_3hvuw")]
 
-[node name="Sprite2D" parent="Enemy2" index="1"]
-sprite_frames = SubResource("SpriteFrames_ir142")
+[node name="AnimatedSprite2D" parent="Enemy2" index="1"]
+sprite_frames = SubResource("SpriteFrames_upihd")
+
+[node name="Enemy3" parent="." instance=ExtResource("2_3hvuw")]
+
+[node name="AnimatedSprite2D" parent="Enemy3" index="1"]
+sprite_frames = SubResource("SpriteFrames_upihd")
+
+[node name="Enemy4" parent="." instance=ExtResource("2_3hvuw")]
+
+[node name="AnimatedSprite2D" parent="Enemy4" index="1"]
+sprite_frames = SubResource("SpriteFrames_upihd")
 
 [editable path="Enemy1"]
 [editable path="Enemy2"]
+[editable path="Enemy3"]
+[editable path="Enemy4"]

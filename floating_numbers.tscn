@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dmu0ewknyt75u"]
+[gd_scene load_steps=5 format=3 uid="uid://dmu0ewknyt75u"]
 
 [ext_resource type="FontFile" uid="uid://b40etf1d71sjq" path="res://assets/ui/fonts/final_fantasy_36_font.ttf" id="1_c22qp"]
 
@@ -6,57 +6,41 @@
 base_font = ExtResource("1_c22qp")
 
 [sub_resource type="Animation" id="Animation_p23uf"]
-length = 0.001
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextPopupLocation/Label:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TextPopupLocation/Label:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_hybym"]
 resource_name = "popup"
 length = 0.75
 step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TextPopupLocation/Label:scale")
+tracks/0/path = NodePath("dmglabel:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TextPopupLocation/Label:self_modulate")
+tracks/1/path = NodePath("dmglabel:theme_override_font_sizes/font_size")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.55, 0.75),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(0.5, 0.5, 0.5),
+"update": 1,
+"values": [32, 48, 32]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("dmglabel:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2, 0.75),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
@@ -64,24 +48,23 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_r4tjh"]
 _data = {
-"RESET": SubResource("Animation_p23uf"),
-"popup": SubResource("Animation_hybym")
+"popup": SubResource("Animation_p23uf")
 }
 
 [node name="FloatingNumbers" type="Marker2D"]
+texture_filter = 1
 
 [node name="dmglabel" type="Label" parent="."]
-self_modulate = Color(1, 1, 1, 0)
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -28.0
-offset_top = -14.0
-offset_right = 28.0
-offset_bottom = 14.0
+offset_left = -960.0
+offset_top = -540.0
+offset_right = -904.0
+offset_bottom = -512.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1.5)
@@ -92,7 +75,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_r4tjh")
 }
-autoplay = "popup"

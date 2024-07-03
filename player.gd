@@ -33,7 +33,6 @@ var InBattle: bool = false
 
 @onready var _focus = $focus
 @onready var progress_bar = $ProgressBar
-@onready var animation_player = %AnimationPlayer
 @onready var floating_numbers = $TextPopupLocation
 @onready var damage_numbers = %Label
 
@@ -44,13 +43,11 @@ var InBattle: bool = false
 var playerhealth: float:
 	set(value):
 		playerhealth = value
-		_play_animation()
 		floating_numbers.popup()
 		
 var enemyhealth: float:
 	set(value):
 		enemyhealth = value
-		_play_animation()
 		floating_numbers.popup()
 
 func initialize_job_stats():
@@ -81,9 +78,6 @@ func _update_progress_bar_players():
 	$ProgressBar.max_value = int(MaxHP)
 	$ProgressBar.value = int(HP)
 
- 
-func _play_animation():
-	animation_player.play("hurt")
  
 func focus():
 	_focus.show()

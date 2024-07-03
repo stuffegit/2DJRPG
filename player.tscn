@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://36cibapy05jx"]
+[gd_scene load_steps=14 format=3 uid="uid://gjtm2ky6qty7"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_0pecf"]
 [ext_resource type="Texture2D" uid="uid://doieu3njvpwj6" path="res://assets/ui/Crisis_core_cursor.webp" id="2_5j85h"]
@@ -7,151 +7,56 @@
 [ext_resource type="FontFile" uid="uid://b40etf1d71sjq" path="res://assets/ui/fonts/final_fantasy_36_font.ttf" id="3_rxwtk"]
 [ext_resource type="Script" path="res://TextPopupLocation.gd" id="5_tkxsb"]
 
-[sub_resource type="FontVariation" id="FontVariation_p8ev0"]
+[sub_resource type="FontVariation" id="FontVariation_8kghd"]
 base_font = ExtResource("3_rxwtk")
 
-[sub_resource type="FontVariation" id="FontVariation_8b08i"]
+[sub_resource type="FontVariation" id="FontVariation_qct42"]
 base_font = ExtResource("3_rxwtk")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_607s8"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bjwtf"]
 bg_color = Color(1, 1, 1, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h5ny7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_roh0r"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="FontVariation" id="FontVariation_o602d"]
+[sub_resource type="FontVariation" id="FontVariation_skrk5"]
 base_font = ExtResource("3_rxwtk")
 
-[sub_resource type="Animation" id="Animation_mirm4"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextPopupLocation/Label:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1.5, 1.5)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TextPopupLocation/Label:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:self_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_f53wy"]
-resource_name = "dmg_popup"
-length = 0.75
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("TextPopupLocation/Label:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("TextPopupLocation/Label:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.55, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_mn8ex"]
+[sub_resource type="Animation" id="Animation_8m4c3"]
 resource_name = "hurt"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
-}
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_nrynh"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8f5ie"]
 _data = {
-"RESET": SubResource("Animation_mirm4"),
-"dmg_popup": SubResource("Animation_f53wy"),
-"hurt": SubResource("Animation_mn8ex")
+"hurt": SubResource("Animation_8m4c3")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D"]
 texture_filter = 1
-scale = Vector2(2, 2)
 script = ExtResource("1_0pecf")
 chartype = ExtResource("2_n2c2n")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
 scale = Vector2(2, 2)
 texture = ExtResource("2_ec7nc")
 hframes = 2
 vframes = 2
+frame = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(2, 2)
-autoplay = "default"
 
 [node name="focus" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(-50, 0)
+position = Vector2(-0.4, 0)
 texture = ExtResource("2_5j85h")
 
 [node name="HPLabel" type="Label" parent="."]
+texture_filter = 1
 offset_left = 28.0
 offset_top = -20.0
 offset_right = 68.0
 offset_bottom = 3.0
-theme_override_fonts/font = SubResource("FontVariation_p8ev0")
+theme_override_fonts/font = SubResource("FontVariation_8kghd")
 theme_override_font_sizes/font_size = 16
 text = "1"
 
@@ -159,16 +64,15 @@ text = "1"
 offset_left = -25.0
 offset_top = -50.0
 offset_right = 75.0
-offset_bottom = -27.0
+offset_bottom = -22.0
 scale = Vector2(0.5, 0.5)
-theme_override_fonts/font = SubResource("FontVariation_8b08i")
+theme_override_fonts/font = SubResource("FontVariation_qct42")
 theme_override_font_sizes/font_size = 32
-theme_override_styles/background = SubResource("StyleBoxFlat_607s8")
-theme_override_styles/fill = SubResource("StyleBoxFlat_h5ny7")
+theme_override_styles/background = SubResource("StyleBoxFlat_bjwtf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_roh0r")
 value = 69.0
 
 [node name="TextPopupLocation" type="Marker2D" parent="."]
-position = Vector2(0, -20)
 script = ExtResource("5_tkxsb")
 
 [node name="Label" type="Label" parent="TextPopupLocation"]
@@ -180,22 +84,22 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -15.02
-offset_right = 20.0
-offset_bottom = 7.98
+offset_left = -960.0
+offset_top = -540.0
+offset_right = -746.0
+offset_bottom = -512.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1.5)
 size_flags_horizontal = 4
-theme_override_fonts/font = SubResource("FontVariation_o602d")
+theme_override_fonts/font = SubResource("FontVariation_skrk5")
 theme_override_font_sizes/font_size = 32
 text = "Undefined Damage"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-unique_name_in_owner = true
+root_node = NodePath("../TextPopupLocation")
 libraries = {
-"": SubResource("AnimationLibrary_nrynh")
+"": SubResource("AnimationLibrary_8f5ie")
 }

@@ -9,8 +9,9 @@ enum BATTLE_STATES {
 	LOSE
 }
 
-var enemies: Array = []
-@onready var player = $Player
+
+@onready var enemies = $EnemyGroup.get_children()
+@onready var player = %Player
 
 var current_state
 var index: int = 0
@@ -27,22 +28,21 @@ var attacked = false
 @onready var choice = $"CanvasLayer/choice"
 
 func _ready():
-	player.initialize_job_stats()
-	player._update_progress_bar_players()
+	%Player.initialize_job_stats()
+	%Player._update_progress_bar_players()
 	player.InBattle = true
 	randomize()
-	enemies = $EnemyGroup.get_children()
 	print("enemies variable: " +str(enemies))
 	for i in enemies.size():
-		enemies[i].position = Vector2(i*-64, i*128)
+		enemies[i].position.y += i*128
+		enemies[i].position.x -= i*64
 		enemies[i].initialize_monster_stats()
 		enemies[i]._update_progress_bar_enemies()
 	_handle_states(BATTLE_STATES.PLAYER_TURN)
 
 	
-	for i in range(0, 2):
+	for i in range(enemies.size()):
 		player_team.push_back(enemies[i])
-		
 
 func _handle_states(new_state):
 	current_state = new_state
@@ -98,10 +98,11 @@ func _attack_command(target):
 	player.Damage = int(rng.randf_range(player.Attack*0.8, player.Attack*1.2))
 	enemies[target].take_damage(player.Damage, target)
 	await get_tree().create_timer(1).timeout
-	if enemies[target].HP <= 0:
+	if enemies[target].HP <= 0 or not enemies[target].HP:
 		enemies[target].queue_free()
-		enemy_turn_order.remove_at(target)
-		await get_tree().create_timer(0.1).timeout
+		if enemy_turn_order:
+			enemy_turn_order.remove_at(target)
+			await get_tree().create_timer(0.1).timeout
 	if enemies.size() > 0:
 		_handle_states(BATTLE_STATES.ENEMY_TURN)
 	else: 
@@ -123,8 +124,8 @@ func _process(_delta):
 			_action(index)
 			_reset_focus()
 
-func _action(index):
-	_attack_command(index)
+func _action(actionindex):
+	_attack_command(actionindex)
 
 func switch_focus(x,y):
 	for enemy in enemies:

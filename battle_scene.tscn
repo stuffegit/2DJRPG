@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://d0h0gth5xr531"]
 
-[ext_resource type="Texture2D" uid="uid://dy1dvmjc67je0" path="res://assets/worldtextures/battle-background/battleback10.png" id="1_uhm05"]
 [ext_resource type="PackedScene" uid="uid://b6ckcmt6vn1kb" path="res://enemy_group.tscn" id="1_xodlp"]
 [ext_resource type="Script" path="res://battle_scene.gd" id="1_y2hss"]
-[ext_resource type="PackedScene" uid="uid://36cibapy05jx" path="res://player.tscn" id="3_8boiu"]
+[ext_resource type="Texture2D" uid="uid://xtrs8yw86mlt" path="res://assets/worldtextures/battle-background/battleback5.png" id="2_iqrf6"]
+[ext_resource type="PackedScene" uid="uid://gjtm2ky6qty7" path="res://player.tscn" id="3_8boiu"]
 [ext_resource type="FontFile" uid="uid://b40etf1d71sjq" path="res://assets/ui/fonts/final_fantasy_36_font.ttf" id="5_fnd43"]
 
 [sub_resource type="FontVariation" id="FontVariation_yvcs8"]
@@ -13,12 +13,13 @@ base_font = ExtResource("5_fnd43")
 base_font = ExtResource("5_fnd43")
 
 [node name="BattleScene" type="Node2D"]
+texture_filter = 1
 script = ExtResource("1_y2hss")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 offset_right = 1920.0
 offset_bottom = 1080.0
-texture = ExtResource("1_uhm05")
+texture = ExtResource("2_iqrf6")
 
 [node name="GameStateLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -31,18 +32,16 @@ theme_override_font_sizes/font_size = 64
 text = "6969696969"
 
 [node name="EnemyGroup" parent="." instance=ExtResource("1_xodlp")]
-position = Vector2(575, 422)
+position = Vector2(434, 475)
 
 [node name="Player" parent="." instance=ExtResource("3_8boiu")]
-position = Vector2(1533, 584)
-
-[node name="Sprite2D" parent="Player" index="0"]
-frame = 3
+unique_name_in_owner = true
+position = Vector2(1639, 598)
+scale = Vector2(2, 2)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="choice" type="VBoxContainer" parent="CanvasLayer"]
-visible = false
 texture_filter = 1
 anchors_preset = 3
 anchor_left = 1.0

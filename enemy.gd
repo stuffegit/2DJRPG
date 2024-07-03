@@ -27,7 +27,6 @@ func initialize_monster_stats():
 
 @onready var _focus = $focus
 @onready var progress_bar = $ProgressBar
-@onready var animation_player = %AnimationPlayer
 @onready var floating_numbers = $TextPopupLocation
 @onready var damage_numbers = %Label
 var enemies: Array = []
@@ -37,12 +36,12 @@ var enemyhplabel
 var enemyhealth: float:
 	set(value):
 		enemyhealth = value
-		_play_animation()
 		floating_numbers.popup()
 		
  
 func _ready():
 	_update_progress_bar_enemies()
+	initialize_monster_stats()
 
 func _update_progress_bar_enemies():
 	if $HPLabel != null:
@@ -53,8 +52,6 @@ func _update_progress_bar_enemies():
 		enemyprogbar.max_value = MaxHP
 		enemyprogbar.value = HP
  
-func _play_animation():
-	animation_player.play("hurt")
  
 func focus():
 	_focus.show()
