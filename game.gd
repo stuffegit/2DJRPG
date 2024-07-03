@@ -5,6 +5,8 @@ var rng = RandomNumberGenerator.new()
 
 func _ready():
 	randomize()
+	$Player/ProgressBar.hide()
+	$Player/HPLabel.hide()
 	#lvlupdebuglabel()
 
 func _process(_delta):

@@ -29,6 +29,8 @@ func initialize_monster_stats():
 @onready var progress_bar = $ProgressBar
 @onready var floating_numbers = $TextPopupLocation
 @onready var damage_numbers = %Label
+@onready var playername = get_node("../../Player").Name
+
 var enemies: Array = []
 var enemyprogbar
 var enemyhplabel
@@ -60,6 +62,8 @@ func unfocus():
 	_focus.hide()
  
 func take_damage(value, target):
+	playername = get_node("../../Player").Name
+	print(str(playername))
 	HP -= value
 	enemyhealth -= value
 	damage_numbers.text = str(value)
@@ -67,5 +71,7 @@ func take_damage(value, target):
 	print("target is enemy: "+str(target))
 	print("health of enemy: "+str(enemyhealth))
 	print("damage value: "+str(value))
+	
+	get_node("../../CanvasLayer/CombatTextPanel/CombatText").text = "[center]" + str(Name)+" took " + str(value) + " from " + str(playername)
 	
 	_update_progress_bar_enemies()

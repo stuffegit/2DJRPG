@@ -31,27 +31,17 @@ animations = [{
 script = ExtResource("1_gmhq1")
 
 [node name="Enemy1" parent="." instance=ExtResource("2_3hvuw")]
+Name = "Slime1"
 
 [node name="AnimatedSprite2D" parent="Enemy1" index="1"]
 sprite_frames = SubResource("SpriteFrames_upihd")
 autoplay = "default"
 
 [node name="Enemy2" parent="." instance=ExtResource("2_3hvuw")]
+Name = "Slime2"
 
 [node name="AnimatedSprite2D" parent="Enemy2" index="1"]
 sprite_frames = SubResource("SpriteFrames_upihd")
 
-[node name="Enemy3" parent="." instance=ExtResource("2_3hvuw")]
-
-[node name="AnimatedSprite2D" parent="Enemy3" index="1"]
-sprite_frames = SubResource("SpriteFrames_upihd")
-
-[node name="Enemy4" parent="." instance=ExtResource("2_3hvuw")]
-
-[node name="AnimatedSprite2D" parent="Enemy4" index="1"]
-sprite_frames = SubResource("SpriteFrames_upihd")
-
 [editable path="Enemy1"]
 [editable path="Enemy2"]
-[editable path="Enemy3"]
-[editable path="Enemy4"]

@@ -11,13 +11,17 @@ enum BATTLE_STATES {
 
 
 @onready var enemies = $EnemyGroup.get_children()
+
 @onready var player = %Player
+@onready var playeranimation = $Player/AnimationPlayer
+@onready var enemyanimation
 
 var current_state
 var index: int = 0
 
 var player_team = Array()
 var enemy_turn_order = Array()
+
 
 var playerturn_damage
 var enemyturn_damage
@@ -26,6 +30,8 @@ var attacked = false
 @onready var resetfocus = $Player/focus
 
 @onready var choice = $"CanvasLayer/choice"
+
+@onready var CombatText = $CanvasLayer/CombatTextPanel/CombatText.text
 
 func _ready():
 	%Player.initialize_job_stats()
@@ -50,6 +56,7 @@ func _handle_states(new_state):
 	
 	match current_state:
 		BATTLE_STATES.PLAYER_TURN:
+			$CanvasLayer/CombatTextPanel/CombatText.text = ""
 			enemies = $EnemyGroup.get_children()
 			if player.HP > 0:
 				if enemies.size() > 0:
@@ -86,8 +93,9 @@ func _handle_enemy_turn():
 		print("enemy_turn_order 0: "+str(enemy_turn_order.front()))
 		print("enemy turn order: "+str(enemy_turn_order.size()))
 		enemy_turn_order.front().Damage = int(rng.randf_range(enemy_turn_order.front().Attack*0.8, enemy_turn_order.front().Attack*1.2))
-		$Player.take_damage(enemy_turn_order.front().Damage)
-		await get_tree().create_timer(1).timeout
+		$Player.take_damage(enemy_turn_order.front().Damage, enemy_turn_order.front().Name)
+		get_node("EnemyGroup/"+str(enemy_turn_order[0].get_name())+"/AnimationPlayer").play("attack_placeholder")
+		await get_tree().create_timer(1.5).timeout
 		enemy_turn_order.pop_front()
 	show_choice()
 	_handle_states(BATTLE_STATES.PLAYER_TURN)
@@ -96,8 +104,9 @@ func _attack_command(target):
 	attacked = true
 	$Player/focus.hide()
 	player.Damage = int(rng.randf_range(player.Attack*0.8, player.Attack*1.2))
+	playeranimation.play("attack_placeholder")
 	enemies[target].take_damage(player.Damage, target)
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(2).timeout
 	if enemies[target].HP <= 0 or not enemies[target].HP:
 		enemies[target].queue_free()
 		if enemy_turn_order:

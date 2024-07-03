@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://gjtm2ky6qty7"]
+[gd_scene load_steps=16 format=3 uid="uid://gjtm2ky6qty7"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_0pecf"]
 [ext_resource type="Texture2D" uid="uid://doieu3njvpwj6" path="res://assets/ui/Crisis_core_cursor.webp" id="2_5j85h"]
@@ -25,8 +25,39 @@ base_font = ExtResource("3_rxwtk")
 [sub_resource type="Animation" id="Animation_8m4c3"]
 resource_name = "hurt"
 
+[sub_resource type="Animation" id="Animation_sp4ij"]
+resource_name = "attack_placeholder"
+length = 0.7
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, -50, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.2, 0.7)
+}
+
+[sub_resource type="Animation" id="Animation_00qik"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8f5ie"]
 _data = {
+"RESET": SubResource("Animation_00qik"),
+"attack_placeholder": SubResource("Animation_sp4ij"),
 "hurt": SubResource("Animation_8m4c3")
 }
 

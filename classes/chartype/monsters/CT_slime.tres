@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource("1_6salx")
-Name = "Unnamed"
+Name = "Slime"
 Level = 1
 MaxHP = 0.0
-HP = 20.0
+HP = 15.0
 Armor = 0
 Attack = 2
 Damage = 0

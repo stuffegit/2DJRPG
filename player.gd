@@ -6,7 +6,7 @@ const SPEED = 300.0
 @export var Name: String = "Unnamed"
 @export var Icon: Texture2D = null
 @export var Level: int = 1
-@export var MaxHP: float = 0
+@export var MaxHP: float = 100
 @export var HP: float = 0
 @export var Armor: int = 0
 @export var Attack = 0
@@ -75,6 +75,7 @@ func _ready():
 
 func _update_progress_bar_players():
 	$HPLabel.text = str(HP)
+	$ProgressBar.min_value = 0
 	$ProgressBar.max_value = int(MaxHP)
 	$ProgressBar.value = int(HP)
 
@@ -85,7 +86,7 @@ func focus():
 func unfocus():
 	_focus.hide()
  
-func take_damage(value):
+func take_damage(value, attacker):
 	print(str(HP))
 	HP -= value
 	progress_bar.value = int(HP)
@@ -96,7 +97,9 @@ func take_damage(value):
 	print("target is player")
 	print("health of player: "+str(playerhealth))
 	print("damage value: "+str(value))
-		
+
+	get_node("../CanvasLayer/CombatTextPanel/CombatText").text = "[center]" + str(Name)+" took " + str(value) + " from " + str(attacker)
+
 	_update_progress_bar_players()
 
 func update_sprite_facing():
