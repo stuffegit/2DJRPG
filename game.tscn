@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://doyv4b78p2cjd"]
+[gd_scene load_steps=6 format=3 uid="uid://doyv4b78p2cjd"]
 
 [ext_resource type="PackedScene" uid="uid://gjtm2ky6qty7" path="res://player.tscn" id="1_cw8in"]
 [ext_resource type="Script" path="res://game.gd" id="1_cwudv"]
 [ext_resource type="Texture2D" uid="uid://bgwenlm05lyai" path="res://assets/worldtextures/battle-background/battleback1.png" id="2_l3cex"]
+[ext_resource type="Texture2D" uid="uid://b21n38uxifsr0" path="res://assets/anim/slime/Slime-0001.png" id="4_ggkd7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j4qth"]
 
 [node name="Game" type="Node2D"]
 texture_filter = 1
@@ -18,8 +21,23 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Player" parent="." instance=ExtResource("1_cw8in")]
-position = Vector2(1659, 576)
+position = Vector2(101, 643)
 scale = Vector2(2, 2)
+
+[node name="Sprite2D" parent="Player" index="0"]
+frame = 2
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(1493, 585)
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("4_ggkd7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D"]
+position = Vector2(0, -1)
+scale = Vector2(2, 2)
+shape = SubResource("CircleShape2D_j4qth")
 
 [node name="UI" type="CanvasLayer" parent="."]
 

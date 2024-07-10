@@ -2,11 +2,20 @@ extends Node2D
 
 var rng = RandomNumberGenerator.new()
 
+var current_state
 enum BATTLE_STATES {
 	PLAYER_TURN, 
 	ENEMY_TURN, 
 	WIN,
 	LOSE
+}
+
+var action
+enum ACTIONS {
+	ATTACK, 
+	MAGIC, 
+	DEFEND,
+	ITEM
 }
 
 
@@ -16,7 +25,8 @@ enum BATTLE_STATES {
 @onready var playeranimation = $Player/AnimationPlayer
 @onready var enemyanimation
 
-var current_state
+
+
 var index: int = 0
 
 var player_team = Array()
@@ -34,6 +44,8 @@ var attacked = false
 @onready var CombatText = $CanvasLayer/CombatTextPanel/CombatText.text
 
 func _ready():
+	$Player/ProgressBar.show()
+	$Player/HPLabel.show()
 	%Player.initialize_job_stats()
 	%Player._update_progress_bar_players()
 	player.InBattle = true
@@ -117,6 +129,23 @@ func _attack_command(target):
 	else: 
 		_handle_states(BATTLE_STATES.WIN)
 
+func _magic_command(target):
+	attacked = true
+	$Player/focus.hide()
+	player.Damage = int(rng.randf_range(player.Spirit*0.8, player.Spirit*1.2))
+	playeranimation.play("attack_placeholder")
+	enemies[target].take_damage(player.Damage, target)
+	await get_tree().create_timer(2).timeout
+	if enemies[target].HP <= 0 or not enemies[target].HP:
+		enemies[target].queue_free()
+		if enemy_turn_order:
+			enemy_turn_order.remove_at(target)
+			await get_tree().create_timer(0.1).timeout
+	if enemies.size() > 0:
+		_handle_states(BATTLE_STATES.ENEMY_TURN)
+	else: 
+		_handle_states(BATTLE_STATES.WIN)
+
 func _process(_delta):
 	if not choice.visible and current_state == BATTLE_STATES.PLAYER_TURN and attacked == false:
 		if Input.is_action_just_pressed("ui_up"):
@@ -134,7 +163,15 @@ func _process(_delta):
 			_reset_focus()
 
 func _action(actionindex):
-	_attack_command(actionindex)
+	match action:
+		ACTIONS.ATTACK:
+			_attack_command(actionindex)
+		ACTIONS.MAGIC:
+			_magic_command(actionindex)
+		ACTIONS.DEFEND:
+			pass
+		ACTIONS.ITEM:
+			pass
 
 func switch_focus(x,y):
 	for enemy in enemies:
@@ -160,4 +197,11 @@ func _start_choosing():
 
 func _on_attack_pressed():
 	choice.hide()
+	action = ACTIONS.ATTACK
+	_start_choosing()
+
+
+func _on_magic_pressed():
+	choice.hide()
+	action = ACTIONS.MAGIC
 	_start_choosing()

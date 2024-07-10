@@ -79,19 +79,18 @@ theme_override_fonts/font = SubResource("FontVariation_d2cdx")
 theme_override_font_sizes/font_size = 32
 text = "Attack"
 
+[node name="Magic" type="Button" parent="CanvasLayer/choice"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_d2cdx")
+theme_override_font_sizes/font_size = 32
+text = "Magic"
+
 [node name="Skill" type="Button" parent="CanvasLayer/choice"]
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontVariation_d2cdx")
 theme_override_font_sizes/font_size = 32
 disabled = true
 text = "Skill"
-
-[node name="Magic" type="Button" parent="CanvasLayer/choice"]
-layout_mode = 2
-theme_override_fonts/font = SubResource("FontVariation_d2cdx")
-theme_override_font_sizes/font_size = 32
-disabled = true
-text = "Magic"
 
 [node name="Item" type="Button" parent="CanvasLayer/choice"]
 layout_mode = 2
@@ -115,5 +114,6 @@ disabled = true
 text = "Escape"
 
 [connection signal="pressed" from="CanvasLayer/choice/Attack" to="." method="_on_attack_pressed"]
+[connection signal="pressed" from="CanvasLayer/choice/Magic" to="." method="_on_magic_pressed"]
 
 [editable path="Player"]
