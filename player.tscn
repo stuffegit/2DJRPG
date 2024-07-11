@@ -22,8 +22,19 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="FontVariation" id="FontVariation_skrk5"]
 base_font = ExtResource("3_rxwtk")
 
-[sub_resource type="Animation" id="Animation_8m4c3"]
-resource_name = "hurt"
+[sub_resource type="Animation" id="Animation_00qik"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
 
 [sub_resource type="Animation" id="Animation_sp4ij"]
 resource_name = "attack_placeholder"
@@ -40,19 +51,8 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2, 0.7)
 }
 
-[sub_resource type="Animation" id="Animation_00qik"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
+[sub_resource type="Animation" id="Animation_8m4c3"]
+resource_name = "hurt"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8f5ie"]
 _data = {
